@@ -79,56 +79,62 @@ function Login() {
 
 
   return (
-    <div className="d-flex justify-content-center align-items-center vh-100 bg-light">
-      <div
-        className="card shadow-lg p-4"
-        style={{ width: "380px", borderRadius: "14px" }}
-      >
-        <h3 className="text-center mb-4">🔐 Admin Login</h3>
+    <div className="login-shell">
+      <div className="glass-card">
+        <div className="card-body">
+          <h3 className="text-center mb-2">🔐 Admin Login</h3>
+          <div className="text-center login-subtitle mb-4">
+            Sign in to manage inventory and orders.
+          </div>
 
-        {/* Email */}
-        <input
-          type="email"
-          className="form-control mb-3"
-          placeholder="Email"
-          onChange={(e) => setEmail(e.target.value)}
-        />
-
-        {/* Password */}
-        <div className="input-group mb-3">
+          {/* Email */}
           <input
-            type={showPassword ? "text" : "password"}
-            className="form-control"
-            placeholder="Password"
-            onChange={(e) => setPassword(e.target.value)}
+            type="email"
+            className="form-control app-input mb-3"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
           />
 
+          {/* Password */}
+          <div className="input-group mb-3">
+            <input
+              type={showPassword ? "text" : "password"}
+              className="form-control app-input"
+              placeholder="Password"
+              onChange={(e) => setPassword(e.target.value)}
+            />
+
+            <button
+              type="button"
+              className="btn btn-outline-secondary btn-pill"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? "Hide" : "Show"}
+            </button>
+          </div>
+
+          {/* Remember */}
+          <div className="d-flex align-items-center justify-content-between mb-3">
+            <div className="form-check">
+              <input
+                type="checkbox"
+                className="form-check-input"
+                onChange={(e) => setRemember(e.target.checked)}
+              />
+              <label className="form-check-label">Remember me</label>
+            </div>
+            <div className="text-secondary small">Admin only</div>
+          </div>
+
+          {/* Login button */}
           <button
-            className="btn btn-outline-secondary"
-            onClick={() => setShowPassword(!showPassword)}
+            className="btn btn-brand btn-pill w-100"
+            onClick={login}
+            disabled={loading}
           >
-            {showPassword ? "Hide" : "Show"}
+            {loading ? "Logging in..." : "Login"}
           </button>
         </div>
-
-        {/* Remember */}
-        <div className="form-check mb-3">
-          <input
-            type="checkbox"
-            className="form-check-input"
-            onChange={(e) => setRemember(e.target.checked)}
-          />
-          <label className="form-check-label">Remember me</label>
-        </div>
-
-        {/* Login button */}
-        <button
-          className="btn btn-dark w-100"
-          onClick={login}
-          disabled={loading}
-        >
-          {loading ? "Logging in..." : "Login"}
-        </button>
       </div>
     </div>
   );

@@ -42,19 +42,28 @@ function Books() {
 
 
   return (
-    <div className="container mt-5">
+    <div className="container app-container" style={{ paddingTop: 28, paddingBottom: 48 }}>
 
       {/* Top bar */}
-      <div className="d-flex justify-content-between mb-4">
-        <h2>📚 Book Store</h2>
-
+      <div className="topbar mb-4">
         <div>
-          <Link to="/cart" className="btn btn-success me-2">
-            🛒 Cart ({cart.length})
+          <h2 className="brand-title mb-1">
+            <span className="logo">
+              <span className="logo-icon" aria-hidden="true">📚</span>
+              <span className="logo-title">BookStore</span>
+            </span>
+          </h2>
+          <div className="subtitle">Find your next read in seconds.</div>
+        </div>
+
+        <div className="d-flex align-items-center gap-3">
+          <Link to="/cart" className="btn btn-outline-success btn-pill">
+            <span aria-hidden="true">🛒</span> Cart{" "}
+            <span className="ms-1">({cart.length})</span>
           </Link>
 
-          <Link to="/login" className="btn btn-dark">
-            Admin Login
+          <Link to="/login" className="btn btn-brand btn-pill">
+            Admin
           </Link>
         </div>
       </div>
@@ -62,28 +71,38 @@ function Books() {
 
       {/* Search */}
       <input
-        className="form-control mb-4"
-        placeholder="Search..."
+        className="form-control app-input search-input mb-4"
+        placeholder="Search by title or author..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
 
       {/* Books Grid */}
-      <div className="row">
+      <div className="row g-4">
         {filteredBooks.map((book) => (
-          <div key={book._id} className="col-md-3 mb-4">
-            <div className="card p-3 h-100 d-flex flex-column">
-              <h5>{book.title}</h5>
-              <p>{book.author}</p>
-              <h6>₹{book.price}</h6>
+          <div key={book._id} className="col-md-3">
+            <div className="book-card p-3 h-100 d-flex flex-column gap-2">
+              <div className="book-cover" aria-hidden="true" />
 
-              <button
-                className="btn btn-primary mt-auto"
-                onClick={() => addToCart(book)}
-              >
-                Add to Cart
-              </button>
+              <div className="mt-1">
+                <div className="book-title">{book.title}</div>
+                <div className="book-author">{book.author}</div>
+              </div>
+
+              <div className="d-flex align-items-center justify-content-between mt-auto pt-2">
+                <div className="book-price">₹{book.price}</div>
+
+                <button
+                  type="button"
+                  className="btn btn-brand icon-btn"
+                  onClick={() => addToCart(book)}
+                  aria-label={`Add ${book.title} to cart`}
+                  title="Add to Cart"
+                >
+                  🛒+
+                </button>
+              </div>
             </div>
           </div>
         ))}
@@ -94,19 +113,19 @@ function Books() {
       <div className="d-flex justify-content-center mt-4 gap-3">
 
         <button
-          className="btn btn-secondary"
+          className="btn btn-outline-secondary btn-pill"
           disabled={page === 1}
           onClick={() => setPage(page - 1)}
         >
           Prev
         </button>
 
-        <span className="align-self-center">
+        <span className="align-self-center pagination-chip">
           Page {page} of {totalPages}
         </span>
 
         <button
-          className="btn btn-secondary"
+          className="btn btn-outline-secondary btn-pill"
           disabled={page === totalPages}
           onClick={() => setPage(page + 1)}
         >
